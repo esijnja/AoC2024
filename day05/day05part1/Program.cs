@@ -1,4 +1,4 @@
-﻿var input = File.ReadAllLines("input_.txt");
+﻿var input = File.ReadAllLines("input.txt");
 
 var totalLines = input.Length;
 int lineNumber = 0;
@@ -24,9 +24,30 @@ while (lineNumber < totalLines)
     sequences.Add(sequence);
 }
 
+var correntSequences = new List<List<int>>();
+
 foreach (var sequence in sequences)
 {
-    
+    var valid = true;
+    foreach (var rule in rules)
+    {
+        var beforeIndex = sequence.IndexOf(rule.before);
+        var afterIndex = sequence.IndexOf(rule.after);
+        if (!(beforeIndex == -1 || afterIndex == -1 || beforeIndex < afterIndex))
+        {
+            valid = false;
+            break;
+        }
+    }
+
+    if (valid)
+    {
+        correntSequences.Add(sequence);
+    }
+}
+
+foreach (var sequence in correntSequences)
+{
     total += sequence.ElementAt(sequence.Count/2);
 }
 
