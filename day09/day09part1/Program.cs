@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-var input = File.ReadAllLines("input_.txt");
+var input = File.ReadAllLines("input.txt");
 
 
 var encryptedDisk = input[0].ToCharArray().Select(c => int.Parse($"{c}")).ToArray();
@@ -35,7 +35,7 @@ for (int i = disk2.Length-1; i >= 0; i--)
 {
     if (disk2[i] != '.')
     {
-        for (; jj < disk2.Length; jj++)
+        for (; jj < disk2.Length && i>jj; jj++)
         {
             if (disk2[jj] == '.')
             {
@@ -45,7 +45,7 @@ for (int i = disk2.Length-1; i >= 0; i--)
             }            
         }
     }
-    Console.WriteLine(string.Join("", disk2)); 
+    //Console.WriteLine(string.Join("", disk2)); 
 }
 
 //var disk2 = disk.Replace(".", string.Empty);
@@ -54,7 +54,9 @@ Console.WriteLine(disk2);
 var total = 0L;
 for (long i = 0; i < disk2.Length; i++)
 {
-    if (disk2[i] != '.') total += (long.Parse($"{disk2[i]}") * i);
+    if (disk2[i] == '.') 
+        break;
+    total += (long.Parse($"{disk2[i]}") * i);
 }
 
 Console.WriteLine(total);
