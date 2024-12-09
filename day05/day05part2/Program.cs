@@ -1,4 +1,4 @@
-﻿var input = File.ReadAllLines("input_.txt");
+﻿var input = File.ReadAllLines("input.txt");
 
 var totalLines = input.Length;
 int lineNumber = 0;
@@ -49,22 +49,29 @@ foreach (var sequence in sequences)
 
 foreach (var sequence in incorrectSequences)
 {
-    var sortedSequence = sequence.Sort(new CustomComparer(rules)).ToList();
+    Console.WriteLine($"incorrect sequence: {string.Join(",", sequence)}");
+    sequence.Sort(new CustomComparer(rules));
+    Console.WriteLine($"corrected sequence: {string.Join(",", sequence)}");
     total += sequence.ElementAt(sequence.Count/2);
 }
 
 Console.WriteLine(total);
 
-record Rule(int before, int after);
+public record Rule(int before, int after);
 
 public class CustomComparer(List<Rule> rules2) : IComparer<int>
 {
     public int Compare(int x, int y)
     {
-        var s = rules2.FirstOrDefault(r => r.before == y && r.after == x);
+        var s = rules2.FirstOrDefault(r => r.before == x && r.after == y);
         if (s != null)
         {
             return -1;
+        }
+        var t = rules2.FirstOrDefault(r => r.before == y && r.after == x);
+        if (t != null)
+        {
+            return 1;
         }
         // Custom comparison logic
         return 0;
