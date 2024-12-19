@@ -87,7 +87,7 @@ Console.WriteLine(string.Join(",", output));
 void Adv(int combo)
 {
     var operand = GetOperand(combo);
-    registerA /= (int)Math.Pow(2, operand);
+    registerA = (int)(registerA /Math.Pow(2, operand));
     Console.WriteLine( $"ADV: {operand}({combo}) A:{registerA} B:{registerB} C:{registerC}");
 }
 
@@ -96,7 +96,7 @@ void Adv(int combo)
 void Bxl (int combo)
 {
     var operand = GetOperand(combo);
-    registerB ^= operand;
+    registerB = registerB ^ operand;
     Console.WriteLine( $"BXL: {operand}({combo}) A:{registerA} B:{registerB} C:{registerC}");
 }
 
